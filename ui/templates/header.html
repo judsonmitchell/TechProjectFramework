@@ -1,0 +1,32 @@
+<div class="navbar navbar-inverse ">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <check if="{{ @SESSION }}">
+                <true>
+                    <a class="brand" href="{{ @BASE }}/cases/all">{{ @app_name }}</a>
+                </true>
+                <false>
+                    <a class="brand" href="{{ @BASE }}/">{{ @app_name }}</a>
+                </false>
+            </check>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <check if="{{ @SESSION }}">
+                        <true>
+                            <li><a href="{{ @BASE }}/settings/index/"><i class="icon-wrench icon-white"></i> Settings</a></li>
+                            <li><a href="{{ @BASE }}/users/logout/"><i class="icon-share icon-white"></i> Logout</a></li>
+                        </true>
+                        <false>
+                            <li><a href="{{ @BASE }}/users/logout/"><i class="icon-user icon-white"></i> Login</a></li>
+                        </false>
+                    </check>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+</div>

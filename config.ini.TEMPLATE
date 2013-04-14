@@ -1,0 +1,13 @@
+[globals]
+    
+db_host=
+db_name=
+db_user=
+db_pass=
+postmark_key=
+postmark_email=
+base_url=
+path_to_files=
+user_db_name=
+app_name=
+

@@ -1,69 +1,24 @@
 <?php
 
 $f3=require('lib/base.php');
+$f3->set('DEBUG',2);
+$f3->set('UI','ui/,ui/templates/');
+$f3->set('AUTOLOAD','app/');
+$f3->config('config.ini');
+$f3->set('DB', new DB\SQL('mysql:host='. $f3->get('db_host') .
+';port=3306;dbname=' . $f3->get('db_name') , $f3->get('db_user'),$f3->get('db_pass')));             
 
-$f3->set('UI','ui/');
-
+//main route
 $f3->route('GET /',
 	function($f3) {
-		$classes=array(
-			'Base'=>
-				array(
-					'hash',
-					'json',
-					'session'
-				),
-			'Cache'=>
-				array(
-					'apc',
-					'memcache',
-					'wincache',
-					'xcache'
-				),
-			'DB\SQL'=>
-				array(
-					'pdo',
-					'pdo_dblib',
-					'pdo_mssql',
-					'pdo_mysql',
-					'pdo_odbc',
-					'pdo_pgsql',
-					'pdo_sqlite',
-					'pdo_sqlsrv'
-				),
-			'DB\Jig'=>
-				array('json'),
-			'DB\Mongo'=>
-				array(
-					'json',
-					'mongo'
-				),
-			'Auth'=>
-				array('ldap','pdo'),
-			'Image'=>
-				array('gd'),
-			'Lexicon'=>
-				array('iconv'),
-			'SMTP'=>
-				array('openssl'),
-			'Web'=>
-				array('curl','openssl','simplexml'),
-			'Web\Geo'=>
-				array('geoip','json'),
-			'Web\OpenID'=>
-				array('json','simplexml'),
-			'Web\Pingback'=>
-				array('dom','xmlrpc')
-		);
-		$f3->set('classes',$classes);
-		echo View::instance()->render('welcome.htm');
-	}
+        $f3->reroute('/users/login');
+    }
 );
 
-$f3->route('GET /userref',
-	function() {
-		echo View::instance()->render('userref.htm');
-	}
-);
+//user routes
+$f3->route('POST /users/login_user','Users->login_user');
+$f3->route('POST /users/add','Users->add');
+$f3->route('GET /users/new_password_prompt/@key','Users->new_password_prompt');
+$f3->route('GET|POST /users/@action','Users->@action');
 
 $f3->run();

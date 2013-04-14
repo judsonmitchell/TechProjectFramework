@@ -1,0 +1,6 @@
+*.un~
+*.swp
+tmp/*
+*.ini
+app/files/*.dk
+app/diff_settings.php
